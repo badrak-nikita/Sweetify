@@ -1,0 +1,31 @@
+{% block body %}
+    <header class="s-header">
+        <div class="container s-header__content">
+
+            <div class="s-header__block">
+                <div class="header-logo">
+                    <a class="logo" href="{{ path('app_home') }}">
+                        <img src="images/logo.svg" alt="Homepage">
+                    </a>
+                </div>
+                <a class="header-menu-toggle" href="#0"><span>Menu</span></a>
+            </div>
+
+            <nav class="header-nav">
+                <ul class="header-nav__links">
+                    <li class="current"><a class="smoothscroll" href="#intro">Головна</a></li>
+                    <li><a class="smoothscroll" href="#about">Замовити шоколад</a></li>
+                    <li><a class="smoothscroll" href="#menu">Особистий кабiнет</a></li>
+                </ul>
+
+                <div class="header-contact">
+                    <a href="tel:+" class="header-contact__num btn">
+                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#000000"><defs><style>.cls-6376396cc3a86d32eae6f0dc-1{fill:none;stroke:currentColor;stroke-miterlimit:10;}</style></defs><path class="cls-6376396cc3a86d32eae6f0dc-1" d="M19.64,21.25c-2.54,2.55-8.38.83-13-3.84S.2,6.9,2.75,4.36L5.53,1.57,10.9,6.94l-2,2A2.18,2.18,0,0,0,8.9,12L12,15.1a2.18,2.18,0,0,0,3.07,0l2-2,5.37,5.37Z"></path></svg>
+                        555-123-3456
+                    </a>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+{% endblock %}
