@@ -1,0 +1,74 @@
+<link rel="stylesheet" href="css/authorization/style.css" />
+
+<div class="materialContainer">
+
+    <div class="box">
+        <form method="POST" action="{{ path('app_login') }}">
+            <div class="title">Вхiд</div>
+
+            <div class="input">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="{{ last_username ?? '' }}">
+                <span class="spin"></span>
+            </div>
+
+            <div class="input">
+                <label for="password">Пароль</label>
+                <input type="password" name="password" id="password">
+                <span class="spin"></span>
+            </div>
+
+            {% if error %}
+                <div style="text-align: center; color: red;">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <div class="button login">
+                <button><span>Увiйти</span> <i class="fa fa-check"></i></button>
+            </div>
+        </form>
+
+        <a href="{{ path('app_home') }}" class="pass-forgot">Повернутись на головну</a>
+    </div>
+
+    <div class="overbox">
+        <div class="material-button alt-2"><span class="shape"></span></div>
+
+        <form method="POST" action="{{ path('app_register') }}">
+            <div class="title">Реєстрація</div>
+
+            <div class="input">
+                <label for="name">Ваше iм'я</label>
+                <input type="text" name="name" id="name" required>
+                <span class="spin"></span>
+            </div>
+
+            <div class="input">
+                <label for="emailReg">Ваш email</label>
+                <input type="email" name="emailReg" id="emailReg" required>
+                <span class="spin"></span>
+            </div>
+
+            <div class="input">
+                <label for="passwordReg">Ваш пароль</label>
+                <input type="password" name="passwordReg" id="passwordReg" required>
+                <span class="spin"></span>
+            </div>
+
+            <div class="input">
+                <label for="repeat_password">Пiдтвердження пароля</label>
+                <input type="password" name="repeat_password" id="repeat_password" required>
+                <span class="spin"></span>
+            </div>
+
+            <div class="button">
+                <button><span>Зареєструватись</span></button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="js/authorization/main.js"></script>
