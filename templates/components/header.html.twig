@@ -13,14 +13,14 @@
 
             <nav class="header-nav">
                 <ul class="header-nav__links">
-                    <li class="current"><a class="smoothscroll" href="{{ path('app_home') }}">Головна</a></li>
-                    <li><a class="smoothscroll" href="#about">Замовити шоколад</a></li>
-                    <li><a class="smoothscroll" href="#menu">Особистий кабiнет</a></li>
+                    <li class="current"><a href="{{ path('app_home') }}">Головна</a></li>
+                    <li><a href="#about">Замовити шоколад</a></li>
+                    <li><a href="{{ path('app_profile') }}">Особистий кабiнет</a></li>
                 </ul>
 
                 <div class="header-contact">
                     {% if app.user %}
-                        <a href="" class="header-contact__num btn">
+                        <a href="{{ path('app_profile') }}" class="header-contact__num btn">
                             {{ app.user.name }}
                         </a>
                     {% else %}

@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+{% block title %}Мій профіль - Sweetify{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="/css/profile/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    {% include 'components/header.html.twig' %}
+
+    <main class="main">
+        <section class="profile-section">
+            <div class="profile-container">
+
+                <div class="profile-left">
+                    <div class="avatar-wrapper">
+                        <img src="{{ user.imagePath is not empty ? user.imagePath : asset('/images/user.png') }}" alt="Avatar" class="avatar-img">
+                    </div>
+
+                    <p class="user-name">{{ user.name }}</p>
+
+                    <div class="social-icons">
+                        <span title="Telegram">
+                            {% if user.telegram %}
+                                <a href="https://t.me/{{ user.telegram }}" target="_blank"><i class="bi bi-telegram"></i></a>
+                            {% else %}
+                                <i class="bi bi-telegram" style="opacity: 0.4; pointer-events: none;"></i>
+                            {% endif %}
+                        </span>
+                        <span title="Instagram">
+                            {% if user.instagram %}
+                                <a href="https://www.instagram.com/{{ user.instagram }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                            {% else %}
+                                <i class="bi bi-instagram" style="opacity: 0.4; pointer-events: none;"></i>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="profile-right">
+
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="overview">Огляд</button>
+                        <button class="tab-btn" data-tab="edit">Редагування</button>
+                        <button class="tab-btn" data-tab="password">Зміна паролю</button>
+                        <button class="tab-btn" style="background-color: indianred;" onclick="openLogoutModal()">
+                            <i class="bi bi-box-arrow-right"></i> Вийти
+                        </button>
+                    </div>
+
+                    <div id="logoutModal" class="modal">
+                        <div class="modal-window">
+                            <p>Ви дійсно хочете вийти з облікового запису?</p>
+                            <div class="modal-actions">
+                                <a href="{{ path('app_logout') }}" class="btn-modal confirm">Вийти</a>
+                                <button class="btn-modal cancel" onclick="closeLogoutModal()">Назад</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content active" id="tab-overview">
+                        <div class="info-grid">
+                            <div class="grid-row">
+                                <div class="grid-label">Ім’я</div>
+                                <div class="grid-value">{{ user.name }}</div>
+                            </div>
+                            <div class="grid-row">
+                                <div class="grid-label">Email</div>
+                                <div class="grid-value">{{ user.email }}</div>
+                            </div>
+                            <div class="grid-row">
+                                <div class="grid-label">Телефон</div>
+                                <div class="grid-value">{{ user.phone }}</div>
+                            </div>
+                            <div class="grid-row">
+                                <div class="grid-label">Зареєстровано</div>
+                                <div class="grid-value">{{ user.createdAt|date('d.m.Y') }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-edit">
+                        <form method="POST" enctype="multipart/form-data" action="{{ path('app_profile_edit') }}">
+
+                        <div class="grid-row">
+                                <div class="grid-label">Зображення</div>
+                                <div class="grid-input">
+                                    <div class="image-upload-vertical">
+                                        <img id="avatar-preview" src="{{ user.imagePath is not empty ? user.imagePath : asset('/images/user.png') }}" alt="Avatar" style="width: 125px; height: 125px;">
+
+                                        <div class="image-buttons">
+                                            <div class="pt-2">
+                                                <label for="avatar" class="btn btn-sm btn-primary d-inline-block">
+                                                    <i class="bi bi-upload"></i>
+                                                    <input type="file" name="avatar" id="avatar" accept="image/*" onchange="previewAvatar()" style="display:none;">
+                                                </label>
+                                                <button type="button" class="btn btn-sm btn-danger d-inline-block" onclick="removeAvatar()">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                                <input type="hidden" name="remove_avatar" id="remove_avatar" value="0">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="grid-row">
+                                    <div class="grid-label">Ім’я</div>
+                                    <div class="grid-input"><input type="text" name="name" value="{{ user.name }}"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-label">Email</div>
+                                    <div class="grid-input"><input type="email" name="email" value="{{ user.email }}"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-label">Телефон</div>
+                                    <div class="grid-input"><input type="text" name="phone" value="{{ user.phone }}"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-label">Telegram</div>
+                                    <div class="grid-input"><input type="text" name="telegram" value="{{ user.telegram }}"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-label">Instagram</div>
+                                    <div class="grid-input"><input type="text" name="instagram" value="{{ user.instagram }}"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions"><button type="submit">Зберегти зміни</button></div>
+                        </form>
+                    </div>
+
+                    <div class="tab-content" id="tab-password">
+                        <form action="{{ path('app_profile_change_password') }}" method="POST">
+                            <div class="form-grid">
+                                <div class="grid-row">
+                                    <div class="grid-label">Поточний пароль</div>
+                                    <div class="grid-input"><input type="password" name="current_password" required></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-label">Новий пароль</div>
+                                    <div class="grid-input"><input type="password" name="new_password" required></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-label">Підтвердити пароль</div>
+                                    <div class="grid-input"><input type="password" name="confirm_password" required></div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions"><button type="submit">Змінити пароль</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'components/footer.html.twig' %}
+
+    <script src="/js/profile/script.js"></script>
+{% endblock %}
