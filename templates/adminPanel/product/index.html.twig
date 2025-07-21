@@ -1,0 +1,95 @@
+{% extends 'adminPanel/admin_base.html.twig' %}
+
+{% block body %}
+    <div class="wrapper">
+        {% include 'adminPanel/components/sidebar.html.twig' %}
+
+        <div class="main-panel">
+            {% include 'adminPanel/components/header.html.twig' %}
+
+            <div class="container">
+                <div class="page-inner">
+
+                    <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                        <div>
+                            <h3 class="fw-bold mb-3">Товари</h3>
+                            <h6 class="op-7 mb-2">Керування товарами</h6>
+                        </div>
+                        <div class="ms-md-auto py-2 py-md-0">
+                            <a href="{{ path('admin_create_products') }}" class="btn btn-label-info btn-round me-2">Додати товар</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover align-middle text-center">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th>Зображення</th>
+                                        <th>Назва</th>
+                                        <th>Ціна</th>
+                                        <th>Дії</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for product in products %}
+                                        <tr>
+                                            <td>
+                                                {% if product.images|length > 0 %}
+                                                    <img src="{{ asset('' ~ product.images[0].imagePath) }}" alt="image" width="80">
+                                                {% else %}
+                                                    <span class="text-muted">Немає зображення</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ product.name }}</td>
+                                            <td>{{ product.price }}₴</td>
+                                            <td>
+                                                <div class="d-flex justify-content-center gap-2">
+                                                    <a href="{{ path('admin_edit_product', {id: product.id}) }}" class="btn btn-sm btn-warning"><b>Редагувати</b></a>
+
+                                                    <form id="delete-product-form-{{ product.id }}" action="{{ path('admin_delete_product', {id: product.id}) }}" method="post">
+                                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ product.id }}">
+                                                            <b>Видалити</b>
+                                                        </button>
+                                                    </form>
+
+                                                    <div class="modal fade" id="deleteModal{{ product.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ product.id }}" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteModalLabel{{ product.id }}">Підтвердження видалення</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Ви впевнені, що хочете видалити цей товар?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                                                                    <button type="button" class="btn btn-danger" onclick="document.getElementById('delete-product-form-{{ product.id }}').submit();">Видалити</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">Товарів не знайдено</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {% include 'adminPanel/components/footer.html.twig' %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

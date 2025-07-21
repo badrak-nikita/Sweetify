@@ -1,0 +1,102 @@
+{% extends 'adminPanel/admin_base.html.twig' %}
+
+{% block body %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <div class="wrapper">
+        {% include 'adminPanel/components/sidebar.html.twig' %}
+
+        <div class="main-panel">
+            {% include 'adminPanel/components/header.html.twig' %}
+
+            <div class="container">
+                <div class="page-inner">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Створення товару</div>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <div class="form-group">
+                                                    <label for="productName">Назва товару</label>
+                                                    <input type="text" class="form-control" id="productName" name="productName" placeholder="Введіть назву товару" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="description">Опис</label>
+                                                    <textarea class="form-control" id="description" name="description" placeholder="Введіть опис товару" rows="3"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="price">Ціна</label>
+                                                    <input type="number" class="form-control" id="price" name="price" placeholder="Введіть ціну" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="weight">Вага (г)</label>
+                                                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Введіть вагу" step="0.01">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="description">Склад</label>
+                                                    <textarea class="form-control" id="compound" name="compound" placeholder="Введіть склад товару" rows="3"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group">
+                                                    <label for="category">Смаки</label>
+                                                    <select name="category[]" id="category" multiple class="form-control js-category-select">
+                                                        {% for category in categories %}
+                                                            <option value="{{ category.id }}">{{ category.categoryName }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="images">Зображення товару</label>
+                                                    <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
+                                                    <small class="form-text text-muted">Ви можете завантажити кілька зображень</small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary">Додати товар</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {% include 'adminPanel/components/footer.html.twig' %}
+        </div>
+
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.js-category-select').select2({
+                    placeholder: "Оберіть смаки",
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

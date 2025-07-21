@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'category')]
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
     private Collection $products;
 
     public function __construct()

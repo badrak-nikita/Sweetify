@@ -21,6 +21,10 @@ class OrderItem
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Category $category = null;
+
     #[ORM\Column]
     private ?int $quantity = null;
 
@@ -55,6 +59,18 @@ class OrderItem
     public function setProduct(?Product $product): static
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

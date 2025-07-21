@@ -13,9 +13,13 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
+    private Collection $categories;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     #[ORM\Id]
@@ -31,10 +35,6 @@ class Product
 
     #[ORM\Column]
     private ?float $price = null;
-
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Category $category = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $weight = null;
@@ -83,18 +83,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
     public function getWeight(): ?int
     {
         return $this->weight;
@@ -122,5 +110,26 @@ class Product
     public function getImages(): Collection
     {
         return $this->images;
+    }
+
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
     }
 }

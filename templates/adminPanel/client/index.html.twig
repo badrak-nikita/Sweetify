@@ -1,0 +1,71 @@
+{% extends 'adminPanel/admin_base.html.twig' %}
+
+{% block body %}
+    <div class="wrapper">
+        {% include 'adminPanel/components/sidebar.html.twig' %}
+
+        <div class="main-panel">
+            {% include 'adminPanel/components/header.html.twig' %}
+
+            <div class="container">
+                <div class="page-inner">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Користувачi</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="basic-datatables" class="display table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Фото</th>
+                                                    <th>Ім'я</th>
+                                                    <th>Email</th>
+                                                    <th>Телефон</th>
+                                                    <th>Дата реєстрації</th>
+                                                    <th>Дата оновлення</th>
+                                                    <th>Telegram</th>
+                                                    <th>Instagram</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for user in clients %}
+                                                    <tr>
+                                                        <td>{{ user.id }}</td>
+                                                        <td>
+                                                            <img src="{{ user.imagePath is not empty ? user.imagePath : asset('/images/user.png') }}" alt="Avatar" width="50" height="50" class="rounded-circle">
+                                                        </td>
+                                                        <td>{{ user.name }}</td>
+                                                        <td>{{ user.email }}</td>
+                                                        <td>{{ user.phone }}</td>
+                                                        <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i') : '—' }}</td>
+                                                        <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i') : '—' }}</td>
+                                                        <td>{{ user.telegram ?: '—' }}</td>
+                                                        <td>{{ user.instagram ?: '—' }}</td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td colspan="9" class="text-center text-muted">Користувачів не знайдено</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {% include 'adminPanel/components/footer.html.twig' %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

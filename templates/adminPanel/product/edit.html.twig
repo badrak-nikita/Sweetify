@@ -1,0 +1,145 @@
+{% extends 'adminPanel/admin_base.html.twig' %}
+
+{% block body %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <div class="wrapper">
+        {% include 'adminPanel/components/sidebar.html.twig' %}
+
+        <div class="main-panel">
+            {% include 'adminPanel/components/header.html.twig' %}
+
+            <div class="container">
+                <div class="page-inner">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Редагування товару</div>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <div class="form-group">
+                                                    <label for="productName">Назва товару</label>
+                                                    <input type="text" class="form-control" id="productName" name="productName" placeholder="Введіть назву товару" value="{{ product.name }}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="description">Опис</label>
+                                                    <textarea class="form-control" id="description" name="description" placeholder="Введіть опис товару" rows="3">{{ product.description }}</textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="price">Ціна</label>
+                                                    <input type="number" class="form-control" id="price" name="price" placeholder="Введіть ціну" step="0.01" value="{{ product.price }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="weight">Вага (г)</label>
+                                                    <input type="number" class="form-control" id="weight" name="weight" placeholder="Введіть вагу" step="0.01" value="{{ product.weight }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="description">Склад</label>
+                                                    <textarea class="form-control" id="compound" name="compound" placeholder="Введіть склад товару" rows="3">{{ product.compound }}</textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+
+                                                <div class="form-group">
+                                                    <label for="category">Смаки</label>
+                                                    <select name="category[]" id="category" multiple class="form-control js-category-select">
+                                                        {% for category in categories %}
+                                                            <option value="{{ category.id }}"
+                                                                {% if category in product.categories %}
+                                                                    selected
+                                                                {% endif %}
+                                                            >{{ category.categoryName }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="images">Зображення товару</label>
+                                                    <input type="file" class="form-control" id="images" name="images[]" multiple accept="image/*">
+                                                    <small class="form-text text-muted">Ви можете завантажити кілька зображень</small>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Поточні зображення</label>
+                                                    <div class="row">
+                                                        {% for image in product.images %}
+                                                            <div class="col-md-4 text-center mb-3">
+                                                                <img src="{{ asset(image.imagePath) }}" alt="Зображення товару" class="img-fluid rounded mb-2" style="max-height: 150px;">
+                                                                <button class="btn btn-sm btn-outline-danger js-delete-image" data-id="{{ image.id }}" data-token="{{ csrf_token('delete_image_' ~ image.id) }}">Видалити</button>
+                                                            </div>
+                                                        {% else %}
+                                                            <p class="text-muted">Немає зображень</p>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {% include 'adminPanel/components/footer.html.twig' %}
+        </div>
+
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.js-category-select').select2({
+                    placeholder: "Оберіть смаки",
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+
+            document.querySelectorAll('.js-delete-image').forEach(button => {
+                button.addEventListener('click', e => {
+                    e.preventDefault();
+                    if (!confirm('Ви впевнені, що хочете видалити це зображення?')) return;
+
+                    const imageId = button.dataset.id;
+                    const csrfToken = button.dataset.token;
+
+                    const formData = new FormData();
+                    formData.append('_token', csrfToken);
+
+                    fetch('{{ path('admin_delete_product_image', {'id': 'IMAGE_ID'}) }}'.replace('IMAGE_ID', imageId), {
+                        method: 'POST',
+                        body: formData,
+                    }).then(response => {
+                        if (response.ok) {
+                            button.closest('.col-md-4').remove();
+                        } else {
+                            alert('Помилка видалення зображення');
+                        }
+                    });
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}
