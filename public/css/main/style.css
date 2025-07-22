@@ -1,0 +1,44 @@
+.custom-slider {
+    position: relative;
+    max-width: 250px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.slides {
+    position: relative;
+    height: 250px;
+}
+
+.slide {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
+}
+
+.slide.active {
+    display: block;
+}
+
+.custom-slider .prev,
+.custom-slider .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    padding: 5px 10px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.custom-slider .prev {
+    left: 0;
+}
+
+.custom-slider .next {
+    right: 0;
+}
