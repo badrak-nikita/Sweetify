@@ -182,20 +182,3 @@
         text-align: left;
     }
 }
-
-@media (min-width: 768px) {
-    .swiper-wrapper {
-        transform: none !important;
-    }
-
-    .swiper-slide {
-        flex: 0 0 calc(33.333% - 20px);
-        max-width: calc(33.333% - 20px);
-    }
-
-    .swiper-pagination,
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: none !important;
-    }
-}

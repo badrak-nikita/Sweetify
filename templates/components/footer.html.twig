@@ -4,18 +4,12 @@
             <div class="column xl-3 lg-12 footer-block s-footer__main-start">
 
                 <div class="s-footer__logo">
-                    <a class="logo" href="index.html">
-                        <img src="images/logo.svg" alt="Homepage">
+                    <a class="logo" href="{{ path('app_home') }}">
+                        <img src="images/logo.png" alt="Homepage">
                     </a>
                 </div>
 
                 <ul class="s-footer__social social-list">
-                    <li>
-                        <a href="#0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M20,3H4C3.447,3,3,3.448,3,4v16c0,0.552,0.447,1,1,1h8.615v-6.96h-2.338v-2.725h2.338v-2c0-2.325,1.42-3.592,3.5-3.592 c0.699-0.002,1.399,0.034,2.095,0.107v2.42h-1.435c-1.128,0-1.348,0.538-1.348,1.325v1.735h2.697l-0.35,2.725h-2.348V21H20 c0.553,0,1-0.448,1-1V4C21,3.448,20.553,3,20,3z"></path></svg>
-                            <span class="u-screen-reader-text">Facebook</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="#0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"></path></svg>
@@ -30,63 +24,65 @@
                     </li>
                     <li>
                         <a href="#0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M8.31 10.28a2.5 2.5 0 1 0 2.5 2.49 2.5 2.5 0 0 0-2.5-2.49zm0 3.8a1.31 1.31 0 1 1 0-2.61 1.31 1.31 0 1 1 0 2.61zm7.38-3.8a2.5 2.5 0 1 0 2.5 2.49 2.5 2.5 0 0 0-2.5-2.49zM17 12.77a1.31 1.31 0 1 1-1.31-1.3 1.31 1.31 0 0 1 1.31 1.3z"></path><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm7.38 10.77a3.69 3.69 0 0 1-6.2 2.71L12 16.77l-1.18-1.29a3.69 3.69 0 1 1-5-5.44l-1.2-1.3H7.3a8.33 8.33 0 0 1 9.41 0h2.67l-1.2 1.31a3.71 3.71 0 0 1 1.2 2.72z"></path><path d="M14.77 9.05a7.19 7.19 0 0 0-5.54 0A4.06 4.06 0 0 1 12 12.7a4.08 4.08 0 0 1 2.77-3.65z"></path></svg>
-                            <span class="u-screen-reader-text">Tripadvisor</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                                <path d="M12.12 2h2.04c.18 1.38 1.2 3.12 3.54 3.3v2.1c-.72.06-2.04-.06-3.24-1.02v6.48c0 4.02-3.48 5.1-4.98 5.1-1.98 0-4.14-1.5-4.14-4.5 0-2.88 2.28-4.5 4.2-4.5.72 0 1.32.18 1.74.42v2.16c-.42-.3-2.52-.84-2.52 1.5 0 2.16 3.42 2.28 3.42-.6V2z"/>
+                            </svg>
+                            <span class="u-screen-reader-text">TikTok</span>
                         </a>
                     </li>
-                </ul> <!--end s-footer__social -->
+                </ul>
 
-            </div> <!-- end s-footer__main-start -->
+            </div>
 
 
             <div class="column xl-9 lg-12 s-footer__main-end grid-cols grid-cols--wrap">
 
                 <div class="grid-cols__column footer-block">
-                    <h6>Location</h6>
+                    <h6>Офic</h6>
                     <p>
-                        456 Elm Street, Los Angeles <br>
-                        CA 90001
+                        м. Київ, Україна<br>
+                        пр. Академіка Глушкова, 9Д
                     </p>
                 </div>
 
                 <div class="grid-cols__column footer-block">
-                    <h6>Contacts</h6>
+                    <h6>Контакти</h6>
                     <ul class="link-list">
-                        <li><a href="mailto:#0">contact@lounge.com</a></li>
+                        <li><a href="mailto:#0">sweetify.com.ua@gmail.com</a></li>
                         <li><a href="tel:+2135551212">(213) 555-123-3456</a></li>
                     </ul>
                 </div>
 
                 <div class="grid-cols__column footer-block">
-                    <h6>Opening Hours</h6>
+                    <h6>Часи роботи</h6>
                     <ul class="opening-hours">
-                        <li><span class="opening-hours__days">Weekdays</span><span class="opening-hours__time">10:00am - 9:00pm</span></li>
-                        <li><span class="opening-hours__days">Weekends</span><span class="opening-hours__time">9:00am - 10:00pm</span></li>
+                        <li><span class="opening-hours__days">Буднi</span><span class="opening-hours__time">9:00 - 20:00</span></li>
+                        <li><span class="opening-hours__days">Вихiднi</span><span class="opening-hours__time">9:00 - 18:00</span></li>
                     </ul>
                 </div>
 
-            </div> <!-- s-footer__main-end -->
+            </div>
 
-        </div> <!-- end  s-footer__main-content -->
+        </div>
 
         <div class="row s-footer__bottom">
 
             <div class="column xl-6 lg-12">
                 <p class="ss-copyright">
-                    <span>© Lounge 2025</span>
-                    <span>Design by <a href="https://styleshout.com/">StyleShout</a></span>
-
-                    Distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    <span>© Sweetify 2025</span>
+                    <span>Copyright sweetify.com.ua</span>
+                    <span>All rights reserved</span>
                 </p>
             </div>
 
-        </div> <!-- end s-footer__bottom -->
+        </div>
 
         <div class="ss-go-top">
             <a class="smoothscroll" title="Back to Top" href="#top">
                 <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m14.523 18.787s4.501-4.505 6.255-6.26c.146-.146.219-.338.219-.53s-.073-.383-.219-.53c-1.753-1.754-6.255-6.258-6.255-6.258-.144-.145-.334-.217-.524-.217-.193 0-.385.074-.532.221-.293.292-.295.766-.004 1.056l4.978 4.978h-14.692c-.414 0-.75.336-.75.75s.336.75.75.75h14.692l-4.979 4.979c-.289.289-.286.762.006 1.054.148.148.341.222.533.222.19 0 .378-.072.522-.215z" fill-rule="nonzero"/></svg>
             </a>
             <span>Back To Top</span>
-        </div> <!-- end ss-go-top -->
+        </div>
+
     </footer>
 {% endblock %}

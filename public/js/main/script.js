@@ -31,11 +31,3 @@ function nextSlide(productId) {
 function prevSlide(productId) {
     showSlide(productId, sliders[productId] - 1);
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.custom-slider').forEach(slider => {
-        const id = slider.id.replace('slider-', '');
-        sliders[id] = 0;
-        showSlide(id, 0);
-    });
-});
