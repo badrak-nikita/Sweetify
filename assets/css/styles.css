@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* =================================================================== 
+/* ===================================================================
  * Lounge Main Stylesheet
  * Template Ver. 1.0.0
  * 05-03-2025
@@ -24,30 +24,30 @@
  *      ## tablet devices
  *      ## mobile devices
  *      ## small mobile devices
- *      ## additional column stackpoints 
+ *      ## additional column stackpoints
  * # CSS GRID Layout Tools
- *      ## Grid Block 
+ *      ## Grid Block
  *      ## grid columns
  * # BASE SETUP
  * # UTILITY CLASSES
- * # TYPOGRAPHY 
+ * # TYPOGRAPHY
  *      ## base type styles
  *      ## additional typography classes
  *      ## lists
- *      ## media 
+ *      ## media
  *      ## spacing
  *
  *
  * # PRELOADER
  *      ## page loaded
- * # FORM 
+ * # FORM
  *      ## style placeholder text
  *      ## change autocomplete styles in Chrome
  * # BUTTONS
  * # TABLE
  * # COMPONENTS
- *      ## pagination 
- *      ## alert box 
+ *      ## pagination
+ *      ## alert box
  *      ## skillbars
  *      ## stats tabs
  *
@@ -88,12 +88,12 @@
  *
  * ------------------------------------------------------------------- */
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## font families
  * ------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700&display=swap");
 
-:root {    
+:root {
    /* font-families
    */
     --font-1   : "Roboto Flex", Sans-Serif;
@@ -101,15 +101,15 @@
     --font-mono: Consolas, "Andale Mono", Courier, "Courier New", monospace;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## colors
  * ------------------------------------------------------------------- */
 :root {
   /* theme colors
-   * generated using 
+   * generated using
    * Tailwind CSS Color Generator
    * (https://uicolors.app/generate/)
-   * 
+   *
    * color-1 (#C73E1D)
    * color-2 (#D1C1B3)
    */
@@ -140,8 +140,8 @@
     --color-2                     : var(--color-2-500);
 
   /* neutrals
-   * generated using 
-   * Tint & Shade Generator 
+   * generated using
+   * Tint & Shade Generator
    * (https://maketintsandshades.com/)
    */
     --color-neutral-50            : #efefef;
@@ -171,7 +171,7 @@
     --color-pure-black            : #000000;
 
   /* semantic colors
-   * color-error(#ffd1d2), color-success(#c8e675), 
+   * color-error(#ffd1d2), color-success(#c8e675),
    * color-info(#d7ecfb), color-notice(#fff099)
    */
     --color-error                 : hsl(359, 100%, 91%);
@@ -244,7 +244,7 @@
     --color-loader-light          : var(--color-white);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## shadows
  * ------------------------------------------------------------------- */
 :root {
@@ -268,47 +268,47 @@
         0 32px 32px -2.2px hsla(var(--shadow-color), 0.08);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## easing functions
  * ------------------------------------------------------------------- */
 :root {
-  /* Standard easing functions 
+  /* Standard easing functions
    */
     --ease-linear         : linear;
     --ease-in             : ease-in;
     --ease-out            : ease-out;
     --ease-in-out         : ease-in-out;
 
-  /* Smooth and natural curves 
+  /* Smooth and natural curves
    */
     --ease-smooth         : cubic-bezier(0.25, 0.1, 0.25, 1);
     --ease-smooth-in      : cubic-bezier(0.42, 0, 1, 1);
     --ease-smooth-out     : cubic-bezier(0, 0, 0.58, 1);
     --ease-smooth-in-out  : cubic-bezier(0.42, 0, 0.58, 1);
 
-  /* Snappy and quick curves 
+  /* Snappy and quick curves
    */
     --ease-snappy-polished: cubic-bezier(0.28, 0.12, 0.22, 1);
     --ease-quick-in       : cubic-bezier(0.55, 0.055, 0.675, 0.19);
     --ease-quick-out      : cubic-bezier(0.215, 0.61, 0.355, 1);
 
-  /* Bouncy and playful curves 
+  /* Bouncy and playful curves
    */
     --ease-bounce         : cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --ease-elastic        : cubic-bezier(0.7, -0.4, 0.2, 1.4);
 
-  /* Subtle and minimal curves 
+  /* Subtle and minimal curves
    */
     --ease-subtle         : cubic-bezier(0.2, 0.2, 0.4, 0.8);
     --ease-gentle         : cubic-bezier(0.33, 0.1, 0.33, 1);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## spacing, radius and typescale
  * ------------------------------------------------------------------- */
 :root {
   /* spacing
-   * base font size: 20px 
+   * base font size: 20px
    * vertical space unit : 32px
    */
     --base-size       : 62.5%;
@@ -316,7 +316,7 @@
     --space           : calc(3.2rem * var(--multiplier));
     --base-font-size  : calc(2rem * var(--multiplier));
 
-  /* radius 
+  /* radius
    */
     --radius-0        : 0;
     --radius-xs       : 3px;
@@ -329,7 +329,7 @@
     --radius-full     : 1000px;
     --border-radius   : var(--radius-sm);
 
-  /* vertical spacing 
+  /* vertical spacing
    */
     --vspace-0_125    : calc(0.125 * var(--space));
     --vspace-0_25     : calc(0.25 * var(--space));
@@ -398,10 +398,10 @@
     --text-3huge      : calc(var(--text-2huge) * var(--text-scale-ratio));
 }
 
-/* on small screen devices, adjust the value of '--multiplier' 
+/* on small screen devices, adjust the value of '--multiplier'
  * to control vertical spacing and base font size.
  *
- * Feel free to experiment with different values to 
+ * Feel free to experiment with different values to
  * find what works best for your layout.
  */
 @media screen and (max-width: 600px) {
@@ -416,7 +416,7 @@
     }
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## type variables
  * ------------------------------------------------------------------- */
 :root {
@@ -483,7 +483,7 @@
     --type-size-code               : var(--text-xs);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## grid variables
  * ------------------------------------------------------------------- */
 :root {
@@ -510,7 +510,7 @@
  *
  *
  * --------------------------------------------------------------------
- * http://meyerweb.com/eric/tools/css/reset/ 
+ * http://meyerweb.com/eric/tools/css/reset/
  * v2.0 | 20110126
  * License: none (public domain)
  * -------------------------------------------------------------------- */
@@ -653,18 +653,18 @@ table {
  * -------------------------------------------------------------------
  * - Grid system based on the flex display property.
  *
- * - Grid breakpoints are based on MAXIMUM WIDTH media queries, 
+ * - Grid breakpoints are based on MAXIMUM WIDTH media queries,
  *   meaning they apply to that one breakpoint and ALL THOSE BELOW IT.
  *
- * - Grid columns without a specified width will automatically layout 
+ * - Grid columns without a specified width will automatically layout
  *   as equal width columns.
  *
- * - On viewports 400px and below, all grid columns will stacked 
+ * - On viewports 400px and below, all grid columns will stacked
  *   vertically
  *
  * ------------------------------------------------------------------- */
 
-/* container, row and column 
+/* container, row and column
  */
 .container {
     width         : min(98%, var(--width-grid-max));
@@ -940,7 +940,7 @@ table {
 }
 
 /* --------------------------------------------------------------------
- * ## tablet devices (601px to 800px)  
+ * ## tablet devices (601px to 800px)
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 800px) {
     .tab-1 {
@@ -1005,7 +1005,7 @@ table {
 }
 
 /* --------------------------------------------------------------------
- * ## mobile devices (401px to 600px)  
+ * ## mobile devices (401px to 600px)
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 600px) {
     .mob-1 {
@@ -1090,7 +1090,7 @@ table {
 }
 
 /* --------------------------------------------------------------------
- * ## additional column stackpoints 
+ * ## additional column stackpoints
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 900px) {
     .stack-on-900 {
@@ -1127,7 +1127,7 @@ table {
  * ------------------------------------------------------------------- */
 
 /* --------------------------------------------------------------------
- * ## Grid Block 
+ * ## Grid Block
  * -------------------------------------------------------------------- */
 .grid-block {
     --col                : 12;
@@ -1174,7 +1174,7 @@ table {
     grid-column: 7/span 6;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## grid columns
  * ------------------------------------------------------------------- */
 .grid-cols {
@@ -1195,7 +1195,7 @@ table {
     grid-template-columns: 1fr;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * CSS Grid layout tools
  * ------------------------------------------------------------------- */
@@ -1295,7 +1295,7 @@ pre {
     overflow: auto;
 }
 
-/* Remove margins and paddings for common elements 
+/* Remove margins and paddings for common elements
  */
 div,
 dl,
@@ -1320,7 +1320,7 @@ td {
     padding: 0;
 }
 
-/* Remove default styles for input elements 
+/* Remove default styles for input elements
  */
 input[type=email],
 input[type=number],
@@ -1474,10 +1474,10 @@ textarea {
 
 
 /* ===================================================================
- * # TYPOGRAPHY 
+ * # TYPOGRAPHY
  *
  *
- * ------------------------------------------------------------------- 
+ * -------------------------------------------------------------------
  * type scale - ratio 1:2 | base: 20px
  * -------------------------------------------------------------------
  *
@@ -1917,7 +1917,7 @@ dd {
     margin: 0 0 0 var(--vspace-0_625);
 }
 
-/* definition list line style 
+/* definition list line style
  */
 .lining dt,
 .lining dd {
@@ -1944,7 +1944,7 @@ dd {
     margin-left: -0.2em;
 }
 
-/* definition list dictionary style 
+/* definition list dictionary style
  */
 .dictionary-style dt {
     display      : inline;
@@ -1965,8 +1965,8 @@ dd {
     content: counter(definitions, decimal) ". ";
 }
 
-/* ------------------------------------------------------------------- 
- * ## media 
+/* -------------------------------------------------------------------
+ * ## media
  * ------------------------------------------------------------------- */
 
 /* floated image
@@ -2031,8 +2031,8 @@ img,
 
 /* ===================================================================
  * # PRELOADER
- * 
- * 
+ *
+ *
  * -------------------------------------------------------------------
  * - markup:
  *
@@ -2178,7 +2178,7 @@ img,
     }
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## page loaded
  * ------------------------------------------------------------------- */
 .ss-loaded #preloader {
@@ -2194,7 +2194,7 @@ img,
 
 
 /* ===================================================================
- * # FORM 
+ * # FORM
  *
  *
  * ------------------------------------------------------------------- */
@@ -2320,7 +2320,7 @@ label>input[type=radio] {
     top     : var(--vspace-0_125);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## style placeholder text
  * ------------------------------------------------------------------- */
 ::-moz-placeholder {
@@ -2334,7 +2334,7 @@ label>input[type=radio] {
     color: var(--color-placeholder);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## change autocomplete styles in Chrome
  * ------------------------------------------------------------------- */
 input:-webkit-autofill,
@@ -2576,7 +2576,7 @@ td:last-child {
  * ------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------
- * ## pagination 
+ * ## pagination
  * ------------------------------------------------------------------- */
 .pgn {
     --pgn-num-height: calc(var(--vspace-1) + var(--vspace-0_125));
@@ -2696,7 +2696,7 @@ td:last-child {
     background-color: transparent;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * pagination
  * ------------------------------------------------------------------- */
@@ -2706,8 +2706,8 @@ td:last-child {
     }
 }
 
-/* ------------------------------------------------------------------- 
- * ## alert box 
+/* -------------------------------------------------------------------
+ * ## alert box
  * ------------------------------------------------------------------- */
 .alert-box {
     padding      : var(--vspace-0_75) var(--vspace-1_25) var(--vspace-0_75) var(--vspace-1);
@@ -2797,8 +2797,8 @@ td:last-child {
     transition: all 0.6s var(--ease-snappy-polished);
 }
 
-/* ------------------------------------------------------------------- 
- * ## skillbars 
+/* -------------------------------------------------------------------
+ * ## skillbars
  * ------------------------------------------------------------------- */
 .skill-bars {
     list-style: none;
@@ -2991,7 +2991,7 @@ td:last-child {
  *
  * -------------------------------------------------------------------
  * Contains reusable styles specific to this template.
- * These styles extend the base system and are used across the 
+ * These styles extend the base system and are used across the
  * entire template.
  *
  * ------------------------------------------------------------------- */
@@ -3012,7 +3012,7 @@ td:last-child {
     --width-grid-max: var(--width-narrower);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## section header
  * ------------------------------------------------------------------- */
 .section-header {
@@ -3037,7 +3037,7 @@ td:last-child {
     margin-bottom : -0.4em;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## social list
  * ------------------------------------------------------------------- */
 .social-list {
@@ -3079,7 +3079,7 @@ td:last-child {
     transition: all 0.3s var(--ease-snappy-polished);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## swiper overrides
  * ------------------------------------------------------------------- */
 .swiper-container .swiper-pagination-bullets .swiper-pagination-bullet {
@@ -3102,7 +3102,7 @@ td:last-child {
     visibility: hidden;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## glightbox overrides
  * ------------------------------------------------------------------- */
 .glightbox-container a {
@@ -3411,7 +3411,7 @@ td:last-child {
     bottom: -8px;
 }
 
-/* is clicked 
+/* is clicked
  */
 .header-menu-toggle.is-clicked span {
     background-color: rgba(255, 255, 255, 0);
@@ -3433,7 +3433,7 @@ td:last-child {
     transform: rotate(225deg);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * site-header
  * ------------------------------------------------------------------- */
@@ -3852,7 +3852,7 @@ td:last-child {
     transition-delay: 2.1s;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * intro
  * ------------------------------------------------------------------- */
@@ -4036,7 +4036,7 @@ td:last-child {
     aspect-ratio      : 2000/2000;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * about
  * ------------------------------------------------------------------- */
@@ -4299,7 +4299,7 @@ td:last-child {
     left     : -1px;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * menu
  * ------------------------------------------------------------------- */
@@ -4383,7 +4383,7 @@ td:last-child {
     padding-top: var(--vspace-5);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## gallery items
  * ------------------------------------------------------------------- */
 .gallery-items {
@@ -4486,7 +4486,7 @@ td:last-child {
     transform : scale(1);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * gallery
  * ------------------------------------------------------------------- */
@@ -4582,7 +4582,7 @@ td:last-child {
     margin-top : 0.4rem;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * testimonials
  * ------------------------------------------------------------------- */
@@ -4626,7 +4626,7 @@ td:last-child {
 .s-footer {
     --bottom-padding   : var(--vspace-2_5);
     --footer-logo-width: 16rem;
-    
+
     padding-bottom     : var(--bottom-padding);
 }
 
@@ -4825,7 +4825,7 @@ td:last-child {
     color: var(--color-bg-accent);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## copyright
  * ------------------------------------------------------------------- */
 .ss-copyright {
@@ -4848,7 +4848,7 @@ td:last-child {
     display: none;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## go top
  * ------------------------------------------------------------------- */
 .ss-go-top {
@@ -4898,7 +4898,7 @@ td:last-child {
     fill: var(--color-white);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * footer
  * ------------------------------------------------------------------- */

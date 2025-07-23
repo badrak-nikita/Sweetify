@@ -125,15 +125,19 @@
                                     {{ product.name }}
                                 </h6>
 
-                                <ul class="menu-list">
-                                    <li class="menu-list__item">
-                                        <div class="menu-list__item-desc">
+                                <div class="product-container">
 
-                                            <h4>{{ product.name }}</h4>
-                                            <p>
-                                                {{ product.description }}
-                                            </p>
+                                    <div class="top-section">
+                                        <div class="description">
+                                            {{ product.description }}
+                                        </div>
+                                        <div class="price">
+                                            {{ product.price }} <small style="font-size: 14px">грн</small>
+                                        </div>
+                                    </div>
 
+                                    <div class="middle-section">
+                                        <div class="slider-wrapper">
                                             {% if product.images|length > 0 %}
                                                 <div class="custom-slider" id="slider-{{ product.id }}">
                                                     <div class="slides">
@@ -148,7 +152,9 @@
                                                     <button class="next" onclick="nextSlide({{ product.id }})">&#10095;</button>
                                                 </div>
                                             {% endif %}
+                                        </div>
 
+                                        <div class="categories">
                                             {% if product.categories|length > 0 %}
                                                 <p>
                                                     <strong>Смаки:</strong>
@@ -157,20 +163,20 @@
                                                     {% endfor %}
                                                 </p>
                                             {% endif %}
-
-                                            <p>
-                                                <strong>Склад:</strong> {{ product.compound }}
-                                            </p>
-
-                                            <p>
-                                                <strong>Вага:</strong> {{ product.weight }} г.
-                                            </p>
                                         </div>
-                                        <div class="menu-list__item-price">
-                                            {{ product.price }}&nbspгрн
-                                        </div>
-                                    </li>
-                                </ul>
+                                    </div>
+
+                                    <div class="bottom-section">
+                                        <p><strong>Склад:</strong> {{ product.compound }}</p>
+                                        <p><strong>Вага:</strong> {{ product.weight }}г</p>
+                                    </div>
+
+                                    <div style="text-align: right;">
+                                        <a href="#" class="order-button">Замовити</a>
+                                    </div>
+
+                                </div>
+
                             </div>
                         {% endfor %}
 
@@ -180,174 +186,223 @@
             </div>
         </section>
 
-        <!-- # gallery
-        ================================================== -->
         <section id="gallery" class="container s-gallery target-section">
 
             <div class="row s-gallery__header">
                 <div class="column xl-12 section-header-wrap">
                     <div class="section-header" data-num="03">
-                        <h2 class="text-display-title">Gallery</h2>
+                        <h2 class="text-display-title">Нашi роботи</h2>
                     </div>
-                </div> <!-- end section-header-wrap -->
-            </div> <!-- end s-gallery__header -->
+                </div>
+            </div>
 
             <div class="gallery-items grid-cols grid-cols--wrap">
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-01.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-01.jpg"
-                             srcset="images/gallery/gallery-01.jpg 1x,
-                                    images/gallery/gallery-01@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-01.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-01.png"
+                             srcset="images/gallery/gallery-01.png 1x,
+                                    images/gallery/gallery-01@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item-->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-02.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-02.jpg"
-                             srcset="images/gallery/gallery-02.jpg 1x,
-                                    images/gallery/gallery-02@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-02.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-02.png"
+                             srcset="images/gallery/gallery-02.png 1x,
+                                    images/gallery/gallery-02@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-03.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-03.jpg"
-                             srcset="images/gallery/gallery-03.jpg 1x,
-                                    images/gallery/gallery-03@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-03.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-03.png"
+                             srcset="images/gallery/gallery-03.png 1x,
+                                    images/gallery/gallery-03@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-04.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-04.jpg"
-                             srcset="images/gallery/gallery-04.jpg 1x,
-                                    images/gallery/gallery-04@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-04.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-04.png"
+                             srcset="images/gallery/gallery-04.png 1x,
+                                    images/gallery/gallery-04@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-05.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-05.jpg"
-                             srcset="images/gallery/gallery-05.jpg 1x,
-                                    images/gallery/gallery-05@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-05.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-05.png"
+                             srcset="images/gallery/gallery-05.png 1x,
+                                    images/gallery/gallery-05@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-06.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-06.jpg"
-                             srcset="images/gallery/gallery-06.jpg 1x,
-                                    images/gallery/gallery-06@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-06.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-06.png"
+                             srcset="images/gallery/gallery-06.png 1x,
+                                    images/gallery/gallery-06@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-07.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-07.jpg"
-                             srcset="images/gallery/gallery-07.jpg 1x,
-                                    images/gallery/gallery-07@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-07.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-07.png"
+                             srcset="images/gallery/gallery-07.png 1x,
+                                    images/gallery/gallery-07@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
                 <div class="gallery-items__item grid-cols__column">
-                    <a href="images/gallery/large/l-gallery-08.jpg" class="gallery-items__item-thumb glightbox">
-                        <img src="images/gallery/gallery-08.jpg"
-                             srcset="images/gallery/gallery-08.jpg 1x,
-                                    images/gallery/gallery-08@2x.jpg 2x" alt="">
+                    <a href="images/gallery/large/l-gallery-08.png" class="gallery-items__item-thumb glightbox">
+                        <img src="images/gallery/gallery-08.png"
+                             srcset="images/gallery/gallery-08.png 1x,
+                                    images/gallery/gallery-08@2x.png 2x" alt="">
                     </a>
-                </div> <!-- end gallery-items__item -->
+                </div>
 
-            </div> <!-- end grid-list-items -->
+            </div>
 
-        </section> <!-- end s-gallery -->
+        </section>
 
-
-        <!-- # testimonials
-        ================================================== -->
         <section id="testimonials" class="container s-testimonials">
 
             <div class="row s-testimonials__content">
                 <div class="column xl-12">
-
-                    <h3 class="testimonials-title u-text-center">What Our Clients Say</h3>
-
+                    <h3 class="testimonials-title u-text-center">Кому можна подарувати шоколадку з фото?</h3>
                     <div class="swiper-container testimonials-slider">
+
                         <div class="swiper-wrapper">
 
                             <div class="testimonials-slider__slide swiper-slide">
-                                <div class="testimonials-slider__author">
-                                    <img src="images/avatars/user-02.jpg" alt="Author image" class="testimonials-slider__avatar">
-                                    <cite class="testimonials-slider__cite">
-                                        John Rockefeller
-                                        <span>Cleveland, Ohio</span>
-                                    </cite>
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/heart.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <city class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>
+                                            Коханiй людинi
+                                        </strong>
+                                    </city>
                                 </div>
                                 <p>
-                                    Molestiae incidunt consequatur quis ipsa autem nam sit enim magni. Voluptas tempore rem.
-                                    Explicabo a quaerat sint autem dolore ducimus ut consequatur neque. Nisi dolores quaerat fuga rem nihil nostrum.
-                                    Laudantium quia consequatur molestias.
+                                    Шоб нагадати про свої почуття на річницю, День Валентина або просто без приводу
                                 </p>
-                            </div> <!-- end testimonials-slider__slide -->
+                            </div>
 
                             <div class="testimonials-slider__slide swiper-slide">
-                                <div class="testimonials-slider__author">
-                                    <img src="images/avatars/user-03.jpg" alt="Author image" class="testimonials-slider__avatar">
-                                    <cite class="testimonials-slider__cite">
-                                        Andrew Carnegie
-                                        <span>Pittsburgh, Pennsylvania</span>
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/parents.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Мамi чи тату</strong>
                                     </cite>
                                 </div>
                                 <p>
-                                    Excepturi nam cupiditate culpa doloremque deleniti repellat. Veniam quos repellat voluptas animi adipisci.
-                                    Nisi eaque consequatur. Voluptatem dignissimos ut ducimus accusantium perspiciatis.
-                                    Quasi voluptas eius distinctio. Atque eos maxime.
+                                    Як прояв вдячності за тепло, турботу і підтримку
                                 </p>
-                            </div> <!-- end testimonials-slider__slide -->
+                            </div>
 
                             <div class="testimonials-slider__slide swiper-slide">
-                                <div class="testimonials-slider__author">
-                                    <img src="images/avatars/user-01.jpg" alt="Author image" class="testimonials-slider__avatar">
-                                    <cite class="testimonials-slider__cite">
-                                        John Morgan
-                                        <span>New York City</span>
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/friends.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Друзям</strong>
                                     </cite>
                                 </div>
                                 <p>
-                                    Repellat dignissimos libero. Qui sed at corrupti expedita voluptas odit. Nihil ea quia nesciunt. Ducimus aut sed ipsam.
-                                    Autem eaque officia cum exercitationem sunt voluptatum accusamus. Quasi voluptas eius distinctio.
-                                    Voluptatem dignissimos ut.
+                                    На день народження або як веселий подарунок на згадку
                                 </p>
-                            </div> <!-- end testimonials-slider__slide -->
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-wrapper">
 
                             <div class="testimonials-slider__slide swiper-slide">
-                                <div class="testimonials-slider__author">
-                                    <img src="images/avatars/user-06.jpg" alt="Author image" class="testimonials-slider__avatar">
-                                    <cite class="testimonials-slider__cite">
-                                        Henry Ford
-                                        <span>Dearborn, Michigan</span>
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/teacher.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Вчителю або викладачу</strong>
                                     </cite>
                                 </div>
                                 <p>
-                                    Nunc interdum lacus sit amet orci. Vestibulum dapibus nunc ac augue. Fusce vel dui. In ac felis
-                                    quis tortor malesuada pretium. Curabitur vestibulum aliquam leo. Qui sed at corrupti expedita voluptas odit.
-                                    Nihil ea quia nesciunt. Ducimus aut sed ipsam.
+                                    Оригінальний спосіб подякувати за знання та натхнення
                                 </p>
-                            </div> <!-- end testimonials-slider__slide -->
+                            </div>
 
-                        </div> <!-- end swiper-wrapper -->
+                            <div class="testimonials-slider__slide swiper-slide">
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/brainstorming.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Колезi</strong>
+                                    </cite>
+                                </div>
+                                <p>
+                                    Як креативне привітання на професійне свято чи досягнення
+                                </p>
+                            </div>
 
-                        <div class="swiper-pagination"></div>
+                            <div class="testimonials-slider__slide swiper-slide">
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/customer.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Покупцю/клієнту</strong>
+                                    </cite>
+                                </div>
+                                <p>
+                                    Приємний досвід, який підштовхує клієнта до повторної покупки
+                                </p>
+                            </div>
 
-                    </div> <!-- end testimonials-slider -->
+                        </div>
 
-                </div> <!-- end column -->
-            </div> <!-- end s-testimonials__content -->
+                        <div class="swiper-wrapper">
 
-        </section> <!-- end s-testimonials -->
+                            <div class="testimonials-slider__slide swiper-slide">
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/chase.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Дитині</strong>
+                                    </cite>
+                                </div>
+                                <p>
+                                    Малеча обожнює сюрпризи, особливо з власним зображенням — це не просто солодощі, а справжній скарб
+                                </p>
+                            </div>
+
+                            <div class="testimonials-slider__slide swiper-slide">
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/dog-lover.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Любителю тварин</strong>
+                                    </cite>
+                                </div>
+                                <p>
+                                    Якщо друг або знайомий має улюбленця, порадуйте оригінально — шоколадкою з фото його песика чи котика
+                                </p>
+                            </div>
+
+                            <div class="testimonials-slider__slide swiper-slide">
+                                <div class="testimonials-slider__author" style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="/images/icons/coach.png" alt="" class="testimonials-slider__avatar testimonial_icon">
+                                    <cite class="testimonials-slider__cite" style="font-size: 24px">
+                                        <strong>Тренеру/наставнику</strong>
+                                    </cite>
+                                </div>
+                                <p>
+                                    За мотивацію, натхнення та підтримку — маленький, але щирий знак уваги
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
 
         {% include 'components/footer.html.twig' %}
-    </div> <!-- end page-wrap -->
+    </div>
 
     </body>
 
