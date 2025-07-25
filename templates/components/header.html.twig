@@ -13,12 +13,24 @@
 
             <nav class="header-nav">
                 <ul class="header-nav__links">
-                    <li class="current"><a href="{{ path('app_home') }}">Головна</a></li>
-                    <li><a href="#about">Замовити шоколад</a></li>
-                    <li><a href="{{ path('app_profile') }}">Особистий кабiнет</a></li>
+                    <li class="{{ app.request.attributes.get('_route') == 'app_home' ? 'current' }}">
+                        <a href="{{ path('app_home') }}">Головна</a>
+                    </li>
+                    <li class="{{ app.request.attributes.get('_route') == 'app_product' ? 'current' }}">
+                        <a href="{{ path('app_product') }}">Замовити шоколад</a>
+                    </li>
+                    <li class="{{ app.request.attributes.get('_route') == 'app_profile' ? 'current' }}">
+                        <a href="{{ path('app_profile') }}">Особистий кабiнет</a>
+                    </li>
                 </ul>
 
-                <div class="header-contact">
+                <div class="header-contact" style="display: flex; align-items: center; gap: 10px;">
+                    <div class="cart-container" style="position: relative; cursor: pointer; margin-top: 5px;" id="cart-container">
+                        <img src="/images/icons/shopping-bag.png" class="shopping-icon" alt="Shopping Bag" id="cart-icon">
+
+                        <span id="cart-count" class="cart-count-badge">0</span>
+                    </div>
+
                     {% if app.user %}
                         <a href="{{ path('app_profile') }}" class="header-contact__num btn">
                             {{ app.user.name }}

@@ -699,3 +699,94 @@
     })();
 
 })(document.documentElement);
+
+// Cart
+async function updateCartCount() {
+    const res = await fetch('/cart/count');
+    const data = await res.json();
+    const cartCount = document.getElementById('cart-count');
+
+    if (data.count > 0) {
+        cartCount.textContent = data.count;
+        cartCount.style.display = 'inline-block';
+    } else {
+        cartCount.style.display = 'none';
+    }
+}
+
+async function loadCartItems() {
+    const res = await fetch('/cart/items');
+    const data = await res.json();
+    const container = document.getElementById('cart-items');
+    const totalDisplay = document.getElementById('cart-total-price');
+    container.innerHTML = '';
+
+    if (data.items.length === 0) {
+        container.innerHTML = '<p>Кошик порожній</p>';
+        totalDisplay.textContent = '0 грн';
+        return;
+    }
+
+    let total = 0;
+
+    data.items.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <div class="qty-price">${item.quantity} × ${item.price} грн</div>
+                <div class="qty-price">Разом: ${itemTotal} грн</div>
+            </div>
+            <button class="remove-from-cart" data-id="${item.id}">✕</button>
+        `;
+        container.appendChild(div);
+    });
+
+    container.querySelectorAll('.remove-from-cart').forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const productId = button.dataset.id;
+
+            await fetch(`/cart/remove/${productId}`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            loadCartItems();
+            updateCartCount();
+        });
+    });
+
+    totalDisplay.textContent = `${total} грн`;
+}
+
+document.getElementById('cart-container').addEventListener('click', () => {
+    document.getElementById('cart-sidebar').classList.add('open');
+    document.getElementById('cart-overlay').style.display = 'block';
+    loadCartItems();
+});
+
+document.getElementById('close-cart').addEventListener('click', () => {
+    document.getElementById('cart-sidebar').classList.remove('open');
+});
+
+document.addEventListener('cart-updated', updateCartCount);
+updateCartCount();
+
+const cartSidebar = document.getElementById('cart-sidebar');
+const cartOverlay = document.getElementById('cart-overlay');
+const closeCartBtn = document.getElementById('close-cart');
+
+function closeCartSidebar() {
+    cartSidebar.classList.remove('open');
+    cartOverlay.style.display = 'none';
+}
+
+closeCartBtn.addEventListener('click', closeCartSidebar);
+cartOverlay.addEventListener('click', closeCartSidebar);

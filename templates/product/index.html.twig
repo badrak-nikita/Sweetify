@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% set selectedCategories = app.request.get('category', []) %}
+{% set selectedCategoryIds = [] %}
+{% for id in selectedCategories %}
+    {% set selectedCategoryIds = selectedCategoryIds|merge([id + 0]) %}
+{% endfor %}
+
+
+{% block body %}
+    <link rel="stylesheet" href="/css/product/style.css">
+    <body id="top">
+
+    <div id="page">
+        {% include 'components/header.html.twig' %}
+
+        <section id="" class="container s-testimonials">
+            <div class="s-intro__content">
+
+                <main class="product-page">
+                    <aside class="filters">
+                        <div class="filter-group">
+                            <form id="filter-form">
+                                <h3>Пошук</h3>
+                                <input type="text" name="search" id="search-input" placeholder="Пошук за назвою" class="search-input">
+
+                                <h3>Смаки</h3>
+                                {% for category in categories %}
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" name="category[]" value="{{ category.id }}" class="category-checkbox"
+                                           {% if category.id in selectedCategoryIds %}checked{% endif %}>
+                                    <span class="custom-checkbox"></span>
+                                    {{ category.categoryName }}
+                                </label>
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </aside>
+
+                    <section class="product-list" id="product-list">
+                        {% for product in products %}
+                            <div class="product-card">
+
+                                <div class="image-slider">
+                                    <button class="slide-btn prev">‹</button>
+                                    <div class="slider-images">
+                                        {% for image in product.images %}
+                                            <img src="{{ image.imagePath }}" alt="{{ product.name }}" class="slide {% if loop.first %}active{% endif %}">
+                                        {% endfor %}
+                                    </div>
+                                    <button class="slide-btn next">›</button>
+                                </div>
+
+                                <h4 style="font-size: 24px">{{ product.name }}</h4>
+                                <p class="price">{{ product.price }} грн</p>
+
+                                <div class="quantity-selector">
+                                    <button class="qty-btn">−</button>
+                                    <span class="qty-value">1</span>
+                                    <button class="qty-btn">+</button>
+                                </div>
+
+                                <button class="add-to-cart"
+                                        data-id="{{ product.id }}"
+                                        data-name="{{ product.name }}"
+                                        data-price="{{ product.price }}">
+                                    До кошика
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </section>
+                </main>
+
+            </div>
+
+        </section>
+
+        {% include 'components/footer.html.twig' %}
+    </div>
+
+    </body>
+
+    <script src="/js/product/script.js"></script>
+    <script src="/js/product/filter.js"></script>
+{% endblock %}

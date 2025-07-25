@@ -13,12 +13,14 @@
         <link rel="stylesheet" href="/css/vendor.css">
         <link rel="stylesheet" href="/css/styles.css">
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo_icon_filled.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo_icon_filled.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo_icon_filled.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo_icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo_icon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo_icon.png">
     </head>
     <body>
         {% block body %}{% endblock %}
+
+        {% include 'components/cart.html.twig' %}
 
         <script src="/js/plugins.js"></script>
         <script src="/js/main.js"></script>
