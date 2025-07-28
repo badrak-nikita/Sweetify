@@ -12,7 +12,9 @@
         <strong id="cart-total-price">0 грн</strong>
     </div>
     <div class="cart-checkout">
-        <button id="checkout-btn">Оформити замовлення</button>
+        <a href="{{ path('order_create') }}">
+            <button id="checkout-btn">Оформити замовлення</button>
+        </a>
     </div>
 </div>
 

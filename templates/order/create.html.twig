@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link rel="stylesheet" href="/css/order/style.css">
+    <body id="top">
+
+    <div id="page">
+        {% include 'components/header.html.twig' %}
+
+        <section id="" class="container s-testimonials">
+            <div class="s-intro__content">
+
+                <section class="order-section">
+                    <div class="order-container">
+                        <div class="order-form-section">
+                            <h1 class="order-title">Оформлення замовлення</h1>
+
+                            <form method="post" action="">
+                                <div class="form-group">
+                                    <input type="text" name="clientName" placeholder="ПIБ" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" name="clientEmail" placeholder="Email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="clientPhone" placeholder="Телефон" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <select id="region-select" name="region" required>
+                                        <option value="">Оберіть область</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select id="city-select" name="city" required disabled>
+                                        <option value="">Оберіть місто</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select id="warehouse-select" name="department" required disabled>
+                                        <option value="">Оберіть відділення</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group payment-type-group">
+                                    <label>Тип оплати:</label>
+                                    <div class="payment-type-options">
+                                        {% for type in paymentTypes %}
+                                            <label class="payment-option">
+                                                <input type="radio" name="paymentTypeId" value="{{ type.id }}" required>
+                                                {{ type.paymentTypeName }}
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="form-group comment-group">
+                                    <textarea name="comment" placeholder="Побажання до замовлення або ваше питання" rows="3"></textarea>
+                                </div>
+
+                                <div class="order-buttons">
+                                    <button type="submit">Оформити замовлення</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="order-summary-section">
+                            <h3 class="summary-title">Кошик</h3>
+
+                            {% if selectedItems is empty %}
+                                <div class="summary-item">Кошик порожній</div>
+                            {% else %}
+                                {% for item in selectedItems %}
+                                    <div class="summary-item with-image">
+                                        <img src="{{ asset(item.image) }}" alt="{{ item.name }}">
+                                        <div class="summary-details">
+                                            <div>{{ item.name }} x{{ item.quantity }}</div>
+                                            <div>{{ item.subtotal }} грн</div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                                <hr>
+                                <div class="summary-total">
+                                    Загальна сума: {{ total }} грн
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </section>
+
+
+            </div>
+        </section>
+
+        {% include 'components/footer.html.twig' %}
+    </div>
+
+    </body>
+
+    <script src="/js/order/script.js"></script>
+{% endblock %}
