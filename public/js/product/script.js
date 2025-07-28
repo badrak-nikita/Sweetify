@@ -1,98 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.product-card').forEach(card => {
-        const btns = card.querySelectorAll('.qty-btn');
-        const quantityEl = card.querySelector('.qty-value');
+    const productList = document.getElementById('product-list');
 
-        let quantity = 1;
+    if (!productList) return;
 
-        btns[0].addEventListener('click', () => {
-            if (quantity > 1) {
-                quantity--;
-                quantityEl.textContent = quantity;
-            }
-        });
+    productList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.qty-btn');
+        if (!btn) return;
 
-        btns[1].addEventListener('click', () => {
+        const card = btn.closest('.product-card');
+        const qtyValue = card.querySelector('.qty-value');
+        let quantity = parseInt(qtyValue.textContent, 10) || 1;
+
+        if (btn.textContent.trim() === '+' || btn.classList.contains('plus')) {
             quantity++;
-            quantityEl.textContent = quantity;
-        });
+        } else {
+            quantity = Math.max(1, quantity - 1);
+        }
+
+        qtyValue.textContent = quantity;
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.product-card').forEach(card => {
+    productList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.flip-btn');
+        if (!btn) return;
+
+        const card = btn.closest('.product-card');
+        card.classList.toggle('flipped');
+    });
+
+    productList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.add-to-cart');
+        if (!btn) return;
+
+        const card = btn.closest('.product-card');
+        const qty = parseInt(card.querySelector('.qty-value').textContent, 10) || 1;
+        const productId = btn.dataset.id;
+
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ productId, quantity: qty })
+        })
+            .then(res => res.json())
+            .then(() => {
+                document.getElementById('cart-sidebar').classList.add('open');
+                document.getElementById('cart-overlay').style.display = 'block';
+                loadCartItems();
+                updateCartCount();
+            });
+    });
+
+    productList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.slide-btn');
+        if (!btn) return;
+
+        const card = btn.closest('.product-card');
         const slides = card.querySelectorAll('.slide');
-        const prevBtn = card.querySelector('.slide-btn.prev');
-        const nextBtn = card.querySelector('.slide-btn.next');
-
         if (!slides.length) return;
 
-        let currentIndex = 0;
+        let currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
 
-        const showSlide = (index) => {
-            slides.forEach((img, i) => {
-                img.classList.toggle('active', i === index);
-            });
-        };
-
-        if (prevBtn && nextBtn) {
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                showSlide(currentIndex);
-            });
-
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                showSlide(currentIndex);
-            });
+        if (btn.classList.contains('prev')) {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        } else {
+            currentIndex = (currentIndex + 1) % slides.length;
         }
-    });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.product-card').forEach(card => {
-        const minusBtn = card.querySelector('.qty-btn:first-of-type');
-        const plusBtn = card.querySelector('.qty-btn:last-of-type');
-        const qtyValue = card.querySelector('.qty-value');
-        let quantity = 1;
-
-        plusBtn.addEventListener('click', () => {
-            quantity++;
-            qtyValue.textContent = quantity;
-        });
-
-        minusBtn.addEventListener('click', () => {
-            if (quantity > 1) {
-                quantity--;
-                qtyValue.textContent = quantity;
-            }
-        });
-
-        document.dispatchEvent(new Event('cart-updated'));
-
-        const addToCartBtn = card.querySelector('.add-to-cart');
-        addToCartBtn.addEventListener('click', () => {
-            const productId = addToCartBtn.dataset.id;
-            const qty = quantity;
-
-            fetch('/cart/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    productId: productId,
-                    quantity: qty
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('cart-sidebar').classList.add('open');
-                    document.getElementById('cart-overlay').style.display = 'block';
-                    loadCartItems();
-                    updateCartCount();
-                });
+        slides.forEach((img, i) => {
+            img.classList.toggle('active', i === currentIndex);
         });
     });
 });

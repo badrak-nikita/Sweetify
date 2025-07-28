@@ -40,32 +40,57 @@
                     <section class="product-list" id="product-list">
                         {% for product in products %}
                             <div class="product-card">
+                                <div class="card-inner">
 
-                                <div class="image-slider">
-                                    <button class="slide-btn prev">‹</button>
-                                    <div class="slider-images">
-                                        {% for image in product.images %}
-                                            <img src="{{ image.imagePath }}" alt="{{ product.name }}" class="slide {% if loop.first %}active{% endif %}">
-                                        {% endfor %}
+                                    <div class="card-front">
+                                        <div class="image-slider">
+                                            <button class="slide-btn prev">‹</button>
+                                            <div class="slider-images">
+                                                {% for image in product.images %}
+                                                    <img src="{{ image.imagePath }}" alt="{{ product.name }}"
+                                                         class="slide {% if loop.first %}active{% endif %}">
+                                                {% endfor %}
+                                            </div>
+                                            <button class="slide-btn next">›</button>
+                                        </div>
+
+                                        <h4 style="font-size: 24px">{{ product.name }}</h4>
+                                        <p class="price">{{ product.price }} грн</p>
+
+                                        <div class="quantity-selector">
+                                            <button class="qty-btn">−</button>
+                                            <span class="qty-value">1</span>
+                                            <button class="qty-btn">+</button>
+                                        </div>
+
+                                        <button class="add-to-cart"
+                                                data-id="{{ product.id }}"
+                                                data-name="{{ product.name }}"
+                                                data-price="{{ product.price }}">
+                                            До кошика
+                                        </button>
+
                                     </div>
-                                    <button class="slide-btn next">›</button>
+
+                                    <div class="card-back">
+                                        <p>{{ product.description|default('—') }}</p>
+                                        <p><strong>Вага:</strong> {{ product.weight|default('—') }}г</p>
+                                        <p><strong>Смаки:</strong>
+                                            {% for cat in product.categories %}
+                                                {{ cat.categoryName }}{% if not loop.last %}, {% endif %}
+                                            {% else %}
+                                                —
+                                            {% endfor %}
+                                        </p>
+
+                                    </div>
+
                                 </div>
 
-                                <h4 style="font-size: 24px">{{ product.name }}</h4>
-                                <p class="price">{{ product.price }} грн</p>
-
-                                <div class="quantity-selector">
-                                    <button class="qty-btn">−</button>
-                                    <span class="qty-value">1</span>
-                                    <button class="qty-btn">+</button>
-                                </div>
-
-                                <button class="add-to-cart"
-                                        data-id="{{ product.id }}"
-                                        data-name="{{ product.name }}"
-                                        data-price="{{ product.price }}">
-                                    До кошика
+                                <button class="flip-btn stylish-flip">
+                                    <img src="/images/icons/information-button.png" alt="info icon">
                                 </button>
+
                             </div>
                         {% endfor %}
                     </section>
