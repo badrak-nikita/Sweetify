@@ -15,37 +15,41 @@
                         <div class="order-form-section">
                             <h1 class="order-title">Оформлення замовлення</h1>
 
-                            <form method="post" action="">
+                            <form method="post" action="{{ path('app_checkout') }}" id="checkout-form">
+                                <label>Персональнi данi</label>
                                 <div class="form-group">
-                                    <input type="text" name="clientName" placeholder="ПIБ" required>
+                                    <input type="text" name="clientName" placeholder="ПIБ" value="{{ app.user ? app.user.name : '' }}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" name="clientEmail" placeholder="Email" required>
+                                    <input type="email" name="clientEmail" placeholder="Email" value="{{ app.user ? app.user.email : '' }}" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" name="clientPhone" placeholder="Телефон" required>
+                                    <input type="text" name="clientPhone" placeholder="Телефон" value="{{ app.user ? app.user.phone : '' }}" required>
                                 </div>
 
+                                <label>Доставка</label>
                                 <div class="form-group">
-                                    <select id="region-select" name="region" required>
+                                    <select id="region-select" name="" required>
                                         <option value="">Оберіть область</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <select id="city-select" name="city" required disabled>
+                                    <select id="city-select" name="" required disabled>
                                         <option value="">Оберіть місто</option>
                                     </select>
                                 </div>
+
+                                <input type="hidden" name="region" id="region-name-input">
+                                <input type="hidden" name="city" id="city-name-input">
 
                                 <div class="form-group">
                                     <select id="warehouse-select" name="department" required disabled>
                                         <option value="">Оберіть відділення</option>
                                     </select>
                                 </div>
-
 
                                 <div class="form-group payment-type-group">
                                     <label>Тип оплати:</label>
@@ -63,6 +67,8 @@
                                     <textarea name="comment" placeholder="Побажання до замовлення або ваше питання" rows="3"></textarea>
                                 </div>
 
+                                <input type="hidden" name="itemDetails" id="item-details-input">
+
                                 <div class="order-buttons">
                                     <button type="submit">Оформити замовлення</button>
                                 </div>
@@ -73,11 +79,22 @@
                         <div class="order-summary-section">
                             <h3 class="summary-title">Кошик</h3>
 
+                            <p class="modal-description">
+                                <i>
+                                    Ви можете додати вашу фотографію та текст з побажанням прямо у цiй формі, натиснувши на вашу додану шоколадку
+                                </i>
+                            </p>
+
                             {% if selectedItems is empty %}
                                 <div class="summary-item">Кошик порожній</div>
                             {% else %}
                                 {% for item in selectedItems %}
-                                    <div class="summary-item with-image">
+                                    <div class="summary-item with-image cart-item"
+                                         data-index="{{ loop.index0 }}"
+                                         data-categories='{{ item.categories|json_encode|raw }}'
+                                         data-name="{{ item.name }}"
+                                         data-image="{{ asset(item.image) }}"
+                                         data-quantity="{{ item.quantity }}">
                                         <img src="{{ asset(item.image) }}" alt="{{ item.name }}">
                                         <div class="summary-details">
                                             <div>{{ item.name }} x{{ item.quantity }}</div>
@@ -88,7 +105,7 @@
 
                                 <hr>
                                 <div class="summary-total">
-                                    Загальна сума: {{ total }} грн
+                                    Загальна сума: <span style="color: #386c5c">{{ total }}</span> грн
                                 </div>
                             {% endif %}
                         </div>
@@ -96,11 +113,28 @@
                     </div>
                 </section>
 
-
             </div>
         </section>
 
         {% include 'components/footer.html.twig' %}
+    </div>
+
+    <div id="item-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 class="modal-title">Створення шоколадки</h3>
+            <p class="modal-description">
+                Ви можете завантажити власне зображення та написати ваш текст, який буде додано на обкладинку.
+            </p>
+            <form id="item-edit-form">
+                <div id="item-fields-container" class="modal-body">
+                    <!-- JS  -->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Зберегти</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     </body>

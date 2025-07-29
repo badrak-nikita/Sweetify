@@ -31,3 +31,7 @@ function nextSlide(productId) {
 function prevSlide(productId) {
     showSlide(productId, sliders[productId] - 1);
 }
+
+if (performance.getEntriesByType("navigation")[0].type === "navigate") {
+    sessionStorage.removeItem('itemDetails');
+}
