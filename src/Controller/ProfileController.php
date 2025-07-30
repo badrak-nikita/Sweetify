@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +16,26 @@ class ProfileController extends AbstractController
 {
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/profile', name: 'app_profile')]
-    public function index(): Response
+    public function index(OrderRepository $orderRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
 
+        $queryBuilder = $orderRepository->createQueryBuilder('o')
+            ->andWhere('o.userId = :user')
+            ->setParameter('user', $user)
+            ->orderBy('o.createdAt', 'DESC');
+
+        $page = $request->query->getInt('page', 1);
+
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $page,
+            5
+        );
+
         return $this->render('profile/index.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'pagination' => $pagination,
         ]);
     }
 

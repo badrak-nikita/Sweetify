@@ -38,3 +38,19 @@ window.onclick = function(event) {
         closeLogoutModal();
     }
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleButtons = document.querySelectorAll('.toggle-items-btn');
+
+    toggleButtons.forEach((btn, index) => {
+        btn.addEventListener('click', function () {
+            const row = btn.closest('tr');
+            const nextRow = row.nextElementSibling;
+
+            if (nextRow && nextRow.classList.contains('items-row')) {
+                nextRow.classList.toggle('hidden');
+                btn.classList.toggle('rotate');
+            }
+        });
+    });
+});

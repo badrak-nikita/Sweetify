@@ -4,6 +4,7 @@
 {% block body %}
     <link rel="stylesheet" href="/css/profile/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
     {% include 'components/header.html.twig' %}
 
     <main class="main">
@@ -74,6 +75,104 @@
                                 <div class="grid-label">Зареєстровано</div>
                                 <div class="grid-value">{{ user.createdAt|date('d.m.Y') }}</div>
                             </div>
+
+                            <div class="orders-history">
+                                <h4>Історія замовлень</h4>
+
+                                {% if pagination.items is not empty %}
+                                    <div class="orders-table-wrapper">
+                                        <table class="orders-table">
+                                            <tbody>
+                                                {% for order in pagination %}
+                                                    <tr class="order-header">
+                                                        <td>
+                                                            <div class="order-info">
+                                                                <div class="order-value">{{ order.createdAt|date('d.m.Y H:i') }}</div>
+                                                                <div class="order-label">Дата замовлення</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="order-info">
+                                                                <div class="order-value">{{ order.totalPrice }} грн</div>
+                                                                <div class="order-label">Сума замовлення</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="order-info">
+                                                                {% if order.status == '1' %}
+                                                                    <span class="status status-new">Очiкує підтвердження</span>
+                                                                {% elseif order.status == '2' %}
+                                                                    <span class="status status-progress">Доставляється</span>
+                                                                {% elseif order.status == '3' %}
+                                                                    <span class="status status-done">Завершено</span>
+                                                                {% elseif order.status == '4' %}
+                                                                    <span class="status status-canceled">Скасовано</span>
+                                                                {% endif %}
+                                                                <div class="order-label" style="text-align: right;">Статус</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <button class="toggle-items-btn">▼</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="items-row hidden">
+                                                        <td colspan="4">
+                                                            <ul class="items-list">
+                                                                {% for item in order.orderItems %}
+                                                                    <li class="order-item-card">
+                                                                        <div class="item-image">
+                                                                            {% set firstImage = item.product.getImages|first %}
+                                                                            {% if firstImage %}
+                                                                                <img src="{{ asset(firstImage.imagePath) }}" alt="{{ item.product.name }}">
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="item-details">
+                                                                            <div class="product-name">{{ item.product.name }}</div>
+                                                                            <div class="product-price">{{ item.product.price }} грн</div>
+                                                                        </div>
+                                                                        <div class="delivery-details">
+                                                                            <strong>Доставка</strong>
+                                                                            <div>{{ order.region }}, {{ order.city }}, {{ order.department }}</div>
+                                                                            <div class="comment">{{ order.comment }}</div>
+                                                                            <br>
+                                                                            <strong>Спосiб оплати</strong>
+                                                                            <div>{{ order.paymentType.paymentTypeName }}</div>
+                                                                        </div>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="pagination">
+                                        {% if pagination.pageCount > 1 %}
+                                            <ul class="pagination-list">
+                                                {% if pagination.currentPageNumber > 1 %}
+                                                    <li><a href="{{ path('app_profile', { page: pagination.currentPageNumber - 1 }) }}"><</a></li>
+                                                {% endif %}
+
+                                                {% for page in range(1, pagination.pageCount) %}
+                                                    <li class="{% if page == pagination.currentPageNumber %}active{% endif %}">
+                                                        <a href="{{ path('app_profile', { page: page }) }}">{{ page }}</a>
+                                                    </li>
+                                                {% endfor %}
+
+                                                {% if pagination.currentPageNumber < pagination.pageCount %}
+                                                    <li><a href="{{ path('app_profile', { page: pagination.currentPageNumber + 1 }) }}">></a></li>
+                                                {% endif %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+
+                                {% else %}
+                                    <p>У вас поки немає замовлень</p>
+                                {% endif %}
+                            </div>
+
                         </div>
                     </div>
 

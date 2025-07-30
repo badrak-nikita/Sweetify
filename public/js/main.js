@@ -152,9 +152,15 @@
                 * an selector
                 */
                 if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    document.querySelector('.header-nav a[href*=' + sectionId + ']').parentNode.classList.add('current');
+                    const link = document.querySelector('.header-nav a[href*=' + sectionId + ']');
+                    if (link) {
+                        link.parentNode.classList.add('current');
+                    }
                 } else {
-                    document.querySelector('.header-nav a[href*=' + sectionId + ']').parentNode.classList.remove('current');
+                    const link = document.querySelector('.header-nav a[href*=' + sectionId + ']');
+                    if (link) {
+                        link.parentNode.classList.remove('current');
+                    }
                 }
             });
         }

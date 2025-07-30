@@ -22,6 +22,11 @@
                     <li class="{{ app.request.attributes.get('_route') == 'app_profile' ? 'current' }}">
                         <a href="{{ path('app_profile') }}">Особистий кабiнет</a>
                     </li>
+                    <li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin_home') }}">Панель керування</a>
+                        {% endif %}
+                    </li>
                 </ul>
 
                 <div class="header-contact" style="display: flex; align-items: center; gap: 10px;">

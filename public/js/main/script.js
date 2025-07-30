@@ -32,6 +32,13 @@ function prevSlide(productId) {
     showSlide(productId, sliders[productId] - 1);
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".custom-slider").forEach(slider => {
+        const id = slider.id.replace("slider-", "");
+        showSlide(id, 0);
+    });
+});
+
 if (performance.getEntriesByType("navigation")[0].type === "navigate") {
     sessionStorage.removeItem('itemDetails');
 }
