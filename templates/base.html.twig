@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html lang="UA">
+<html lang="uk">
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>Sweetify</title>
+
+        <title>{% block title %}Замовити шоколад з вашим фото{% endblock %}</title>
+        <meta name="description" content="Замовити шоколад з фото та побажанням. Ідеальний солодкий подарунок для коханих, друзів і колег. Шоколадка з фотографією ваших найкращих моментів життя, зробити ексклюзивний подарунок на довгу пам'ять">
+        <meta name="keywords" content="шоколад з фото, подарунок, замовити шоколад, шоколад з побажанням, персоналізований шоколад, авторські шоколадки, кастомний шоколад, солодкий подарунок, шоколадка з фотографією">
+        <meta name="robots" content="index, follow">
+
+        <link rel="canonical" href="https://sweetify.com.ua/">
+
+        <meta property="og:title" content="Замовити шоколад з вашим фото">
+        <meta property="og:description" content="Солодкий подарунок з фото. Створи незабутній момент">
+        <meta property="og:image" content="https://sweetify.com.ua/images/logo_icon.png">
+        <meta property="og:url" content="https://sweetify.com.ua/">
+        <meta property="og:type" content="website">
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": "Шоколадка з фото",
+                "image": "https://sweetify.com.ua/images/logo_icon.png",
+                "description": "Замов шоколад з власною фотографією і побажанням. Ідеальний подарунок для коханих, друзів і колег",
+                "brand": {
+                    "@type": "Brand",
+                    "name": "Sweetify"
+                }
+            }
+        </script>
 
         <script>
             document.documentElement.classList.remove('no-js');
