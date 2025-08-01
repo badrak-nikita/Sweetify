@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -248,5 +249,66 @@ class AdminController extends AbstractController
         return $this->render('adminPanel/client/index.html.twig', [
             'clients' => $clients
         ]);
+    }
+
+    #[Route('/admin/orders', name: 'admin_orders')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function orders(OrderRepository $orderRepository): Response
+    {
+        $orders = $orderRepository->findBy([], ['createdAt' => 'DESC']);
+
+        $ordersData = [];
+
+        foreach ($orders as $order) {
+            $items = [];
+
+            foreach ($order->getOrderItems() as $item) {
+                $items[] = [
+                    'product' => $item->getProduct()?->getName(),
+                    'price' => $item->getProduct()?->getPrice(),
+                    'messageText' => $item->getMessageText(),
+                    'imagePath' => $item->getPhotoPath(),
+                    'category' => $item->getCategory()?->getCategoryName(),
+                ];
+            }
+
+            $ordersData[] = [
+                'id' => $order->getId(),
+                'name' => $order->getClientName(),
+                'email' => $order->getClientEmail(),
+                'phone' => $order->getClientPhone(),
+                'region' => $order->getRegion(),
+                'city' => $order->getCity(),
+                'department' => $order->getDepartment(),
+                'comment' => $order->getComment(),
+                'createdAt' => $order->getCreatedAt(),
+                'totalPrice' => $order->getTotalPrice(),
+                'status' => $order->getStatus(),
+                'items' => $items,
+            ];
+
+            dump($ordersData);
+        }
+
+        return $this->render('adminPanel/order/index.html.twig', [
+            'orders' => $ordersData
+        ]);
+    }
+
+    #[Route('/admin/orders/{id}/status', name: 'admin_order_change_status', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function changeStatus(Request $request, Order $order, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $newStatus = (int)($data['status'] ?? 0);
+
+        if (!in_array($newStatus, [1, 2, 3, 4])) {
+            return new JsonResponse(['success' => false, 'message' => 'Invalid status'], 400);
+        }
+
+        $order->setStatus($newStatus);
+        $em->flush();
+
+        return new JsonResponse(['success' => true]);
     }
 }

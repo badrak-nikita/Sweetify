@@ -7,6 +7,7 @@ use App\Entity\Order;
 use App\Entity\OrderItem;
 use App\Repository\PaymentTypeRepository;
 use App\Repository\ProductRepository;
+use App\Service\TelegramService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,7 +79,8 @@ class OrderController extends AbstractController
         EntityManagerInterface $em,
         SessionInterface $session,
         PaymentTypeRepository $paymentTypeRepository,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        TelegramService $telegramService
     ): Response {
         $cart = $session->get('cart', []);
         $user = $this->getUser();
@@ -167,6 +169,43 @@ class OrderController extends AbstractController
 
         $em->persist($order);
         $em->flush();
+
+        // Telegram
+        $message = "<b>Нове замовлення</b>\n\n";
+        $message .= "👤 <b>Ім'я:</b> " . $order->getClientName() . "\n";
+        $message .= "📧 <b>Email:</b> " . $order->getClientEmail() . "\n";
+        $message .= "📞 <b>Телефон:</b> " . $order->getClientPhone() . "\n";
+        $message .= "📍 <b>Область:</b> " . $order->getRegion() . "\n";
+        $message .= "🏙️ <b>Місто:</b> " . $order->getCity() . "\n";
+        $message .= "🏤 <b>Відділення:</b> " . $order->getDepartment() . "\n";
+
+        if ($order->getComment()) {
+            $message .= "💬 <b>Коментар:</b> " . $order->getComment() . "\n\n";
+        }
+
+        $message .= "💵 <b>Сума:</b> " . $order->getTotalPrice() . " грн";
+
+        $telegramService->sendMessage($message);
+
+        foreach ($order->getOrderItems() as $item) {
+            if ($item->getPhotoPath()) {
+                $fullPath = $this->getParameter('kernel.project_dir') . '/public' . $item->getPhotoPath();
+
+                if (file_exists($fullPath)) {
+                    $caption = $item->getProduct()->getName();
+
+                    if ($item->getMessageText()) {
+                        $caption .= "\n✏️ Текст: " . $item->getMessageText();
+                    }
+
+                    if ($item->getCategory()->getCategoryName()) {
+                        $caption .= "\n✏️ Смак: " . $item->getCategory()->getCategoryName();
+                    }
+
+                    $telegramService->sendDocument($fullPath, $caption);
+                }
+            }
+        }
 
         $session->remove('cart');
         flash()->success('Ваше замовлення успiшно створено', (array)'Success');

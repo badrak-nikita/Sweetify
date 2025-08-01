@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['id' => 'ASC'])]
     private Collection $images;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]

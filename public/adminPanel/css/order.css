@@ -1,0 +1,120 @@
+.btn-group {
+    position: relative;
+}
+
+.table-responsive {
+    overflow: visible;
+}
+
+.status-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    min-width: 150px;
+    padding: 0.5rem 0;
+    margin-top: 5px;
+    font-size: 0.875rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+}
+
+.status-dropdown.d-none {
+    display: none;
+}
+
+.badge {
+    width: 120px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.highlighted-row {
+    border: 2px solid #007bff !important;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    background-color: #f0f8ff;
+}
+
+.table-responsive-x {
+    width: 100%;
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .main-panel {
+        padding: 10px;
+    }
+
+    .col-md-8, .col-md-4 {
+        width: 100%;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        background-color: #fff;
+    }
+
+    .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border: none;
+        font-size: 14px;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        flex: 1;
+        margin-right: 10px;
+        color: #333;
+    }
+
+    .btn-group {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .order-details p,
+    .order-details h5 {
+        font-size: 14px;
+    }
+
+    .table-bordered td, .table-bordered th {
+        font-size: 13px;
+    }
+
+    .status-dropdown {
+        left: auto;
+        right: 0;
+    }
+
+    .badge {
+        width: auto;
+        padding: 4px 8px;
+    }
+}

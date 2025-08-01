@@ -4,11 +4,14 @@
 
             <div class="logo-header" data-background-color="dark">
                 <a href="{{ path('admin_home') }}" class="logo">
+                    <img src = "/images/logo_icon.png" alt = "Logo" style="width: 40px; height: 40px;">
+                    &nbsp
                     <img
-                        src="/adminPanel/img/kaiadmin/logo_light.svg"
+                        src="/images/logo.png"
                         alt="navbar brand"
                         class="navbar-brand"
-                        height="20"
+                        height="40px"
+                        width="120px"
                     />
                 </a>
                 <div class="nav-toggle">
@@ -27,32 +30,35 @@
         </div>
         <div class="sidebar-wrapper scrollbar scrollbar-inner">
             <div class="sidebar-content">
+                {% set current_route = app.request.attributes.get('_route') %}
+
                 <ul class="nav nav-secondary">
-                    <li class="nav-item active">
+                    <li class="nav-item {% if current_route == 'admin_home' %}active{% endif %}">
                         <a href="{{ path('admin_home') }}">
                             <i class="fas fa-home"></i>
                             <p>Головна</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item {% if current_route == 'admin_products' %}active{% endif %}">
                         <a href="{{ path('admin_products') }}">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-box"></i>
                             <p>Товари</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a href="">
-                            <i class="fas fa-home"></i>
+                    <li class="nav-item {% if current_route == 'admin_orders' %}active{% endif %}">
+                        <a href="{{ path('admin_orders') }}">
+                            <i class="fas fa-shopping-cart"></i>
                             <p>Замовлення</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item {% if current_route == 'admin_clients' %}active{% endif %}">
                         <a href="{{ path('admin_clients') }}">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-users"></i>
                             <p>Користувачi</p>
                         </a>
                     </li>
                 </ul>
+
             </div>
         </div>
     </div>
