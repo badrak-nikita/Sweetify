@@ -26,10 +26,10 @@ security:
                 path: app_logout
                 target: /
 
-#    access_control:
-#        - { path: ^/admin, roles: ROLE_ADMIN }
-#
-#    access_denied_url: '/error/404'
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    access_denied_url: '/error/404'
 
 when@test:
     security:
