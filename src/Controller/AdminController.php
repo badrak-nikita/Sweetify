@@ -286,8 +286,6 @@ class AdminController extends AbstractController
                 'status' => $order->getStatus(),
                 'items' => $items,
             ];
-
-            dump($ordersData);
         }
 
         return $this->render('adminPanel/order/index.html.twig', [
