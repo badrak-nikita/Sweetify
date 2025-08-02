@@ -46,6 +46,16 @@
     <body>
         {% block body %}{% endblock %}
 
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GG9HL7VN7B"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-GG9HL7VN7B');
+        </script>
+
         {% include 'components/cart.html.twig' %}
 
         <script src="/js/plugins.js"></script>
