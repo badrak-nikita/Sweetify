@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="/css/product/style.css">
     <body id="top">
 
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
     <div id="page" class="s-pagewrap">
         {% include 'components/header.html.twig' %}
 
@@ -21,7 +29,7 @@
                     <aside class="filters">
                         <div class="filter-group">
                             <form id="filter-form">
-                                <h3>Пошук</h3>
+                                <h3>Фiльтри</h3>
                                 <input type="text" name="search" id="search-input" placeholder="Пошук за назвою" class="search-input">
 
                                 <h3>Смаки</h3>

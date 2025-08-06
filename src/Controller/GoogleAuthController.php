@@ -49,6 +49,7 @@ class GoogleAuthController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setPassword(bin2hex(random_bytes(16)));
+            $user->setIsGoogleUser(true);
 
             $em->persist($user);
             $em->flush();

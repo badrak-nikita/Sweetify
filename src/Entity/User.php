@@ -45,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $instagram = null;
 
+    #[ORM\Column(type: "boolean", options: ["default" => false])]
+    private bool $isGoogleUser = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -177,5 +180,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function isGoogleUser(): bool
+    {
+        return $this->isGoogleUser;
+    }
+
+    public function setIsGoogleUser(bool $isGoogleUser): self
+    {
+        $this->isGoogleUser = $isGoogleUser;
+
+        return $this;
     }
 }

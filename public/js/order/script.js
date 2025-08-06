@@ -12,6 +12,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const citySelect = document.getElementById('city-select');
     const warehouseSelect = document.getElementById('warehouse-select');
 
+    let regionChoices, cityChoices, warehouseChoices;
+
+    citySelect.disabled = true;
+    warehouseSelect.disabled = true;
+
+    cityChoices = new Choices(citySelect, {
+        searchEnabled: true,
+        shouldSort: false,
+        placeholder: true,
+        placeholderValue: 'Оберіть місто',
+        allowHTML: true,
+        removeItemButton: true,
+    });
+
+    warehouseChoices = new Choices(warehouseSelect, {
+        searchEnabled: true,
+        shouldSort: false,
+        placeholder: true,
+        placeholderValue: 'Оберіть відділення',
+        allowHTML: true,
+        removeItemButton: true,
+    });
+
     fetch('https://api.novaposhta.ua/v2.0/json/', {
         method: 'POST',
         body: JSON.stringify({
@@ -30,15 +53,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 option.textContent = area.Description;
                 regionSelect.appendChild(option);
             });
+
+            regionChoices = new Choices(regionSelect, {
+                searchEnabled: true,
+                shouldSort: false,
+                placeholder: true,
+                placeholderValue: 'Оберіть регіон',
+                allowHTML: true,
+                removeItemButton: true,
+            });
         });
 
     regionSelect.addEventListener('change', function () {
-        citySelect.innerHTML = '<option value="">Оберіть місто</option>';
-        warehouseSelect.innerHTML = '<option value="">Оберіть відділення</option>';
-        citySelect.disabled = true;
-        warehouseSelect.disabled = true;
+        cityChoices.clearStore();
+        warehouseChoices.clearStore();
 
-        document.getElementById('region-name-input').value = regionSelect.options[regionSelect.selectedIndex].textContent;
+        cityChoices.setChoices([{ value: '', label: 'Оберіть місто', disabled: true, selected: true }], 'value', 'label', false);
+        warehouseChoices.setChoices([{ value: '', label: 'Оберіть відділення', disabled: true, selected: true }], 'value', 'label', false);
+
+        cityChoices.disable();
+        warehouseChoices.disable();
+
+        document.getElementById('region-name-input').value = regionSelect.options[regionSelect.selectedIndex]?.textContent || '';
 
         const selectedRegion = regionSelect.value;
         if (!selectedRegion) return;
@@ -49,30 +85,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 apiKey: API_KEY,
                 modelName: 'Address',
                 calledMethod: 'getCities',
-                methodProperties: {
-                    AreaRef: selectedRegion
-                }
+                methodProperties: { AreaRef: selectedRegion }
             }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(data => {
-                data.data.forEach(city => {
-                    const option = document.createElement('option');
-                    option.value = city.Ref;
-                    option.textContent = city.Description;
-                    option.setAttribute('data-full', JSON.stringify(city));
-                    citySelect.appendChild(option);
-                });
-                citySelect.disabled = false;
+                if (!data.data.length) return;
+
+                const cityChoicesData = data.data.map(city => ({
+                    value: city.Ref,
+                    label: city.Description
+                }));
+
+                cityChoices.setChoices(cityChoicesData, 'value', 'label', true);
+                cityChoices.enable();
             });
     });
 
     citySelect.addEventListener('change', function () {
-        warehouseSelect.innerHTML = '<option value="">Оберіть відділення</option>';
-        warehouseSelect.disabled = true;
+        warehouseChoices.clearStore();
+        warehouseChoices.setChoices([{ value: '', label: 'Оберіть відділення', disabled: true, selected: true }], 'value', 'label', false);
+        warehouseChoices.disable();
 
-        document.getElementById('city-name-input').value = citySelect.options[citySelect.selectedIndex].textContent;
+        document.getElementById('city-name-input').value = citySelect.options[citySelect.selectedIndex]?.textContent || '';
 
         const cityRef = citySelect.value;
         if (!cityRef) return;
@@ -83,21 +119,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 apiKey: API_KEY,
                 modelName: 'AddressGeneral',
                 calledMethod: 'getWarehouses',
-                methodProperties: {
-                    CityRef: cityRef
-                }
+                methodProperties: { CityRef: cityRef }
             }),
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(data => {
-                data.data.forEach(warehouse => {
-                    const option = document.createElement('option');
-                    option.value = warehouse.Description;
-                    option.textContent = warehouse.Description;
-                    warehouseSelect.appendChild(option);
-                });
-                warehouseSelect.disabled = false;
+                if (!data.data.length) return;
+
+                const warehouseChoicesData = data.data.map(warehouse => ({
+                    value: warehouse.Description,
+                    label: warehouse.Description
+                }));
+
+                warehouseChoices.setChoices(warehouseChoicesData, 'value', 'label', true);
+                warehouseChoices.enable();
             });
     });
 });
@@ -136,8 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${savedItem.photoName ? `📎 ${savedItem.photoName}` : 'Файл не вибрано'}
                     </div>
 
-                    <textarea name="message_${i}" placeholder="Ваш текст на шоколадку"
-                        rows="1" class="auto-resize">${savedItem.message || ''}</textarea>
+                    <div class="textarea-wrapper" style="position: relative;">
+                      <textarea name="message_${i}" placeholder="Ваш текст на шоколадку"
+                                rows="1" class="auto-resize" maxlength="50">${savedItem.message || ''}</textarea>
+                      <div class="char-count">0/50</div>
+                    </div>
 
                     <select name="category_${i}" required>
                         <option value="">Оберіть смак</option>
@@ -147,7 +186,20 @@ document.addEventListener('DOMContentLoaded', () => {
                             </option>
                         `).join('')}
                     </select>
-                `;
+                `
+
+                const textarea = block.querySelector(`textarea[name="message_${i}"]`);
+                const countElem = block.querySelector('.char-count');
+
+                textarea.addEventListener('input', () => {
+                    const len = textarea.value.length;
+                    countElem.textContent = `${len}/50`;
+                    if (len > 50) {
+                        countElem.classList.add('exceeded');
+                    } else {
+                        countElem.classList.remove('exceeded');
+                    }
+                });
 
                 itemFieldsContainer.appendChild(block);
 

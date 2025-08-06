@@ -7,6 +7,14 @@
 
     {% include 'components/header.html.twig' %}
 
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
     <main class="main">
         <section class="profile-section">
             <div class="profile-container">
@@ -234,7 +242,19 @@
                             <div class="form-grid">
                                 <div class="grid-row">
                                     <div class="grid-label">Поточний пароль</div>
-                                    <div class="grid-input"><input type="password" name="current_password" required></div>
+                                    <div class="grid-input">
+                                        <input
+                                            type="password"
+                                            name="current_password"
+                                            {% if user.isGoogleUser %}
+                                                disabled
+                                                placeholder="У вас ще немає пароля"
+                                                required="false"
+                                            {% else %}
+                                                required
+                                            {% endif %}
+                                        >
+                                    </div>
                                 </div>
                                 <div class="grid-row">
                                     <div class="grid-label">Новий пароль</div>

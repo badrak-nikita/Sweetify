@@ -2,6 +2,7 @@
 {% block title %}Оформлення замовлення - Sweetify{% endblock %}
 
 {% block body %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
     <link rel="stylesheet" href="/css/order/style.css">
     <body id="top">
 
@@ -27,7 +28,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" name="clientPhone" placeholder="Телефон" value="{{ app.user ? app.user.phone : '' }}" required>
+                                    <input type="tel" name="clientPhone" placeholder="Телефон" value="{{ app.user ? app.user.phone : '' }}" required>
                                 </div>
 
                                 <label>Доставка</label>
@@ -82,7 +83,7 @@
 
                             <p class="modal-description">
                                 <i>
-                                    Ви можете додати вашу фотографію та текст з побажанням прямо у цiй формі, натиснувши на вашу додану шоколадку
+                                    Ви можете додати вашу фотографію та текст з побажанням прямо у цiй формі, натиснувши на вашу обрану шоколадку
                                 </i>
                             </p>
 
@@ -140,5 +141,6 @@
 
     </body>
 
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="/js/order/script.js"></script>
 {% endblock %}

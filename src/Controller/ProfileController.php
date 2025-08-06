@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -73,18 +74,25 @@ class ProfileController extends AbstractController
 
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/profile/change_password', name: 'app_profile_change_password', methods: ['POST'])]
-    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    public function changePassword(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager
+    ): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         $currentPassword = $request->request->get('current_password');
         $newPassword = $request->request->get('new_password');
         $confirmPassword = $request->request->get('confirm_password');
 
-        if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
-            flash()->error('Неправильний поточний пароль', (array)'Error');
+        if (!$user->isGoogleUser()) {
+            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                flash()->error('Неправильний поточний пароль', (array)'Error');
 
-            return $this->redirectToRoute('app_profile');
+                return $this->redirectToRoute('app_profile');
+            }
         }
 
         if ($newPassword !== $confirmPassword) {
@@ -94,6 +102,10 @@ class ProfileController extends AbstractController
         }
 
         $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+
+        if ($user->isGoogleUser()) {
+            $user->setIsGoogleUser(false);
+        }
 
         $entityManager->flush();
 
