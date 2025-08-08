@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %}Шоколадки з фотографією - Sweetify{% endblock %}
 
+{% block canonical %}
+    <link rel="canonical" href="https://sweetify.com.ua/products" />
+{% endblock %}
+
 {% set selectedCategories = app.request.get('category', []) %}
 {% set selectedCategoryIds = [] %}
 {% for id in selectedCategories %}
